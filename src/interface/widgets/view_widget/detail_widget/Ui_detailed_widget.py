@@ -295,3 +295,4 @@ class Ui_detailedWidget(object):
         self.createdValue.setText(QCoreApplication.translate("detailedWidget", u"TextLabel", None))
     # retranslateUi
 
+

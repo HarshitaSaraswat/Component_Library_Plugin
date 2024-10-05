@@ -13,10 +13,11 @@
 from __future__ import annotations
 
 from enum import Enum
+from typing import Union
 
-from PySide6.QtCore import QSize
-from PySide6.QtGui import QFont, QPixmap
-from PySide6.QtWidgets import QHBoxLayout, QLabel, QWidget
+from PySide2.QtCore import QSize
+from PySide2.QtGui import QPixmap
+from PySide2.QtWidgets import QHBoxLayout, QLabel, QSizePolicy, QWidget
 
 
 class Star(QLabel):
@@ -37,10 +38,14 @@ class Star(QLabel):
         Constructor to initialize the Star.
         """
         super().__init__(parent)
-        self.setFixedSize(QSize(25, 25))
+        self.setFixedSize(QSize(15, 15))
         self.setScaledContents(True)
         self.state = None
         self.setState(self.State.Empty)
+        self.setSizePolicy(
+            QSizePolicy.Policy.Maximum,
+            QSizePolicy.Policy.Maximum,
+        )
 
     def setState(self, state: Star.State):
         """
@@ -64,7 +69,7 @@ class StarRating(QWidget):
 
     def __init__(
         self,
-        parent: QWidget | None = None,
+        parent: Union[QWidget, None] = None,
         default_value: float = 0,
         max_value: int = 5,
     ) -> None:
@@ -92,7 +97,10 @@ class StarRating(QWidget):
         self.hbox_layout = QHBoxLayout()
         self.setLayout(self.hbox_layout)
         self.value_label = QLabel()
-        self.value_label.setFont(QFont("Arial", 14))
+        self.value_label.setSizePolicy(
+            QSizePolicy.Policy.Maximum,
+            QSizePolicy.Policy.Maximum,
+        )
         self.hbox_layout.addWidget(self.value_label)
         for i in range(1, self.max_value + 1):
             star = Star(self)
